@@ -57,11 +57,11 @@ namespace hackTbilisi2015
 				//Here is your Minor value
 				int minor = (scanRecord [startByte + 22] & 0xff) * 0x100 + (scanRecord [startByte + 23] & 0xff);
 
-				if (!_beacons.Any (b => b.UUID = uuid && b.Major == major && b.Minor == minor))
+				if (!_beacons.Any (b => b.UUID == uuid && b.Major == major && b.Minor == minor))
 					_beacons.Add (new iBeacon () { 
 						UUID = uuid,
-						Minor = minor,
-						Major = major,
+						Minor = Convert.ToUInt16(minor),
+						Major = Convert.ToUInt16(major),
 						Key = device.Name,
 						MacAddress = device.Address
 					});
