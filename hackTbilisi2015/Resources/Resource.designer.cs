@@ -979,6 +979,9 @@ namespace hackTbilisi2015
 			// aapt resource value: 0x7f0a0008
 			public const int tabMode = 2131361800;
 			
+			// aapt resource value: 0x7f0a003d
+			public const int textView1 = 2131361853;
+			
 			// aapt resource value: 0x7f0a002b
 			public const int title = 2131361835;
 			

@@ -1,4 +1,4 @@
-using Android.App;
+﻿using Android.App;
 using Android.Widget;
 using Android.OS;
 using Android.Bluetooth;
@@ -7,26 +7,53 @@ using System;
 using System.Collections.Generic;
 using hackTbilisi2015.Core.BusinessObjects;
 using System.Linq;
+using System.Timers;
+using Newtonsoft.Json;
 
-namespace hackTbilisi2015
+namespace hackTbilisi2015.Activities
 {
 	[Activity (Label = "hackTbilisi2015", MainLauncher = true, Icon = "@mipmap/icon")]
 	public class MainActivity : Activity, BluetoothAdapter.ILeScanCallback
 	{
 		private List<iBeacon> _beacons;
-
+        int beaconCount = 4;
+        BluetoothAdapter adapter;
+        DateTime startDate;
+        Timer timer;
+        int elapsedSeconds;
+        TextView text;
 		protected override void OnCreate (Bundle savedInstanceState)
 		{
 			base.OnCreate (savedInstanceState);
 			SetContentView (Resource.Layout.Main);
-			var adapter = BluetoothAdapter.DefaultAdapter;
+            text = FindViewById<TextView>(Resource.Id.textView1);
+            text.Text = "";
+            _beacons = new List<iBeacon>();
+            adapter = BluetoothAdapter.DefaultAdapter;
+            startDate = DateTime.Now;
+            timer = new Timer();
+            timer.Elapsed += Timer_Elapsed;
+            timer.Interval = 1000;
+            elapsedSeconds = 0;
+            timer.Start();
 			adapter.StartLeScan (this);
-			_beacons = new List<iBeacon> ();  
+
+           
 		}
 
-		public void OnLeScan (BluetoothDevice device, int rssi, byte[] scanRecord)
+        private void Timer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            elapsedSeconds++;
+            if (elapsedSeconds > 10)
+            {
+                timer.Stop();
+                adapter.StopLeScan(this);
+                elapsedSeconds = 0;
+            }
+        }
+
+        public void OnLeScan (BluetoothDevice device, int rssi, byte[] scanRecord)
 		{
-			
 			int startByte = 2;
 			var patternFound = false;
 			while (startByte <= 5) {
@@ -62,12 +89,27 @@ namespace hackTbilisi2015
 						UUID = uuid,
 						Minor = Convert.ToUInt16(minor),
 						Major = Convert.ToUInt16(major),
-						Key = device.Name,
+						Name = device.Name,
 						MacAddress = device.Address
 					});
 			}
-		}
+            if (_beacons.Count==beaconCount)
+            {
+                Toast.MakeText(this, "ვიპოვე 4 ცალი.", ToastLength.Long).Show();
+                adapter.StopLeScan(this);
+                timer.Stop();
+                elapsedSeconds = 0;
+                foreach (var beacon in _beacons)
+                {
+                    text.Text += beacon.Name;
+                }
 
+                var intent = new Intent(this,typeof(SearchActivity));
+                var serializedBeacons = JsonConvert.SerializeObject(_beacons);
+                intent.PutExtra("Beacons", serializedBeacons);
+                StartActivity(intent);
+            }
+		}
      
 	}
 }
