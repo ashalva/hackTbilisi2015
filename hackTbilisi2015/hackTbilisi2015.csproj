@@ -78,4 +78,10 @@
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Insights.1.10.6\build\MonoAndroid10\Xamarin.Insights.targets" Condition="Exists('..\packages\Xamarin.Insights.1.10.6\build\MonoAndroid10\Xamarin.Insights.targets')" />
+  <ItemGroup>
+    <ProjectReference Include="..\hackTbilisi2015.Core\hackTbilisi2015.Core.csproj">
+      <Project>{49D7DEFB-FA08-42C7-96DB-C29E970BCFF2}</Project>
+      <Name>hackTbilisi2015.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
 </Project>
