@@ -853,8 +853,11 @@ namespace hackTbilisi2015
 			// aapt resource value: 0x7f0a000f
 			public const int always = 2131361807;
 			
-			// aapt resource value: 0x7f0a003e
-			public const int beacon_list = 2131361854;
+			// aapt resource value: 0x7f0a003c
+			public const int beaconName = 2131361852;
+			
+			// aapt resource value: 0x7f0a0041
+			public const int beacon_list = 2131361857;
 			
 			// aapt resource value: 0x7f0a0016
 			public const int beginning = 2131361814;
@@ -889,8 +892,8 @@ namespace hackTbilisi2015
 			// aapt resource value: 0x7f0a002c
 			public const int expanded_menu = 2131361836;
 			
-			// aapt resource value: 0x7f0a003f
-			public const int found = 2131361855;
+			// aapt resource value: 0x7f0a0042
+			public const int found = 2131361858;
 			
 			// aapt resource value: 0x7f0a0000
 			public const int home = 2131361792;
@@ -913,11 +916,14 @@ namespace hackTbilisi2015
 			// aapt resource value: 0x7f0a0029
 			public const int list_item = 2131361833;
 			
+			// aapt resource value: 0x7f0a003e
+			public const int macAddress = 2131361854;
+			
 			// aapt resource value: 0x7f0a0018
 			public const int middle = 2131361816;
 			
-			// aapt resource value: 0x7f0a003c
-			public const int myButton = 2131361852;
+			// aapt resource value: 0x7f0a003f
+			public const int myButton = 2131361855;
 			
 			// aapt resource value: 0x7f0a0012
 			public const int never = 2131361810;
@@ -934,14 +940,14 @@ namespace hackTbilisi2015
 			// aapt resource value: 0x7f0a0005
 			public const int progress_horizontal = 2131361797;
 			
-			// aapt resource value: 0x7f0a0040
-			public const int proximity = 2131361856;
+			// aapt resource value: 0x7f0a0043
+			public const int proximity = 2131361859;
 			
 			// aapt resource value: 0x7f0a002f
 			public const int radio = 2131361839;
 			
-			// aapt resource value: 0x7f0a003d
-			public const int scan = 2131361853;
+			// aapt resource value: 0x7f0a0040
+			public const int scan = 2131361856;
 			
 			// aapt resource value: 0x7f0a0032
 			public const int search_badge = 2131361842;
@@ -1005,6 +1011,9 @@ namespace hackTbilisi2015
 			
 			// aapt resource value: 0x7f0a000e
 			public const int useLogo = 2131361806;
+			
+			// aapt resource value: 0x7f0a003d
+			public const int uuid = 2131361853;
 			
 			// aapt resource value: 0x7f0a0013
 			public const int withText = 2131361811;
@@ -1111,13 +1120,16 @@ namespace hackTbilisi2015
 			public const int abc_simple_decor = 2130968599;
 			
 			// aapt resource value: 0x7f040018
-			public const int Main = 2130968600;
+			public const int BeaconRowLayout = 2130968600;
 			
 			// aapt resource value: 0x7f040019
-			public const int Search = 2130968601;
+			public const int Main = 2130968601;
 			
 			// aapt resource value: 0x7f04001a
-			public const int support_simple_spinner_dropdown_item = 2130968602;
+			public const int Search = 2130968602;
+			
+			// aapt resource value: 0x7f04001b
+			public const int support_simple_spinner_dropdown_item = 2130968603;
 			
 			static Layout()
 			{

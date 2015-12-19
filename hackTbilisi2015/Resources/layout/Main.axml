@@ -4,16 +4,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:weightSum="100"
-    android:background="#80cbc4">
+    android:background="#26a69a">
     <LinearLayout
         android:layout_weight="35"
         android:weightSum="5"
+        android:background="#00897b"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center">
         <Button
             android:id="@+id/myButton"
-            android:textSize="21dp"
+            android:textSize="19dp"
             android:layout_width="0dp"
             android:layout_weight="2"
             android:layout_height="135dp"
@@ -24,13 +25,14 @@
     <LinearLayout
         android:layout_weight="35"
         android:weightSum="5"
+        android:background="#009688"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center">
         <Button
             android:textColor="@android:color/white"
             android:text="Scan"
-            android:textSize="21dp"
+            android:textSize="19dp"
             android:layout_width="0dp"
             android:layout_height="135dp"
             android:layout_weight="2"

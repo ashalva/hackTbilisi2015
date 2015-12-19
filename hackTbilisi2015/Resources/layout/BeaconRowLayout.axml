@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:orientation="vertical"
+    android:layout_height="wrap_content"
+    android:padding="8dp"
+    android:background="#26a69a">
+    <TextView
+        android:id="@+id/beaconName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#ffffff"
+        android:textSize="14dip"
+        android:text="name" />
+    <TextView
+        android:id="@+id/uuid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12dip"
+        android:textColor="#ffffff"
+        android:paddingLeft="100dip"
+        android:text="uuid" />
+    <TextView
+        android:id="@+id/macAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12dip"
+        android:textColor="#ffffff"
+        android:paddingLeft="100dip"
+        android:text="macaddress" />
+</LinearLayout>

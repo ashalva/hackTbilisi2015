@@ -17,19 +17,20 @@ namespace hackTbilisi2015.Activities
 	public class MainActivity : Activity, BluetoothAdapter.ILeScanCallback
 	{
 		private List<iBeacon> _beacons;
-		int beaconCount = 4;
-		BluetoothAdapter adapter;
-		Timer timer;
-		int elapsedSeconds;
-		Button _findTheBeacons, _scan;
-		bool activityWasStarted = false;
-		ProgressDialog _progressDialog;
+		private int beaconCount = 4;
+		private BluetoothAdapter adapter;
+		private Timer timer;
+		private int elapsedSeconds;
+		private Button _findTheBeacons, _scan;
+		private ProgressDialog _progressDialog;
+		private ListView _beaconList;
 
 		protected override void OnCreate (Bundle savedInstanceState)
 		{
 			base.OnCreate (savedInstanceState);
 			SetContentView (Resource.Layout.Main);
 			_scan = FindViewById<Button> (Resource.Id.scan);
+			_beaconList = FindViewById<ListView> (Resource.Id.beacon_list);
 
 			timer = new Timer ();
 			timer.Elapsed += Timer_Elapsed;
@@ -48,10 +49,9 @@ namespace hackTbilisi2015.Activities
 
 			_findTheBeacons = FindViewById<Button> (Resource.Id.myButton);
 			_findTheBeacons.Enabled = false;
-			_findTheBeacons.SetTextColor (Android.Graphics.Color.DarkGray);
+			_findTheBeacons.SetTextColor (Android.Graphics.Color.Gray);
 			_findTheBeacons.Click += delegate {
 				timer.Stop ();
-				activityWasStarted = true;
 				var intent = new Intent (this, typeof(SearchActivity));
 				var serializedBeacons = JsonConvert.SerializeObject (_beacons);
 				intent.PutExtra ("Beacons", serializedBeacons);
@@ -77,6 +77,8 @@ namespace hackTbilisi2015.Activities
 						_scan.Enabled = true;
 						_findTheBeacons.Enabled = true;
 						_findTheBeacons.SetTextColor (Android.Graphics.Color.White);
+						_beaconList.Adapter = new BeaconAdapter (_beacons, this);
+
 					});
 				}
 			}
@@ -136,9 +138,7 @@ namespace hackTbilisi2015.Activities
 					adapter.StopLeScan (this);
 					timer.Stop ();
 					elapsedSeconds = 0;
-//					foreach (var beacon in _beacons) {
-//						text.Text += beacon.Name;
-//					}
+					_beaconList.Adapter = new BeaconAdapter (_beacons, this);
 				}
 			}
 		}
