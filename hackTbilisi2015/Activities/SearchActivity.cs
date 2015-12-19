@@ -24,7 +24,6 @@ namespace hackTbilisi2015.Activities
 		private List<BeaconsInfo> _beaconsInfo;
 		private List<iBeacon> _beacons;
 		private int _foundBeaconsCount = 0;
-		private TextView _foundText;
 		private TextView _proximityText;
 		private TextView _beaconQuantityInTitleBar;
 		private bool _dialogShowed = false;
@@ -35,8 +34,6 @@ namespace hackTbilisi2015.Activities
 			SetContentView (Resource.Layout.Search);
 			_beaconQuantityInTitleBar = FindViewById<TextView> (Resource.Id.foundBeacons);
 
-			_foundText = FindViewById<TextView> (Resource.Id.found);
-			_foundText.Text = $"ნაპოვნია: {_foundBeaconsCount}";
 			_proximityText = FindViewById<TextView> (Resource.Id.proximity);
 			_proximityText.Text = "";
 			var json = Intent.GetStringExtra ("Beacons");
@@ -94,7 +91,6 @@ namespace hackTbilisi2015.Activities
 					nearest.WasFound = true;
 					_foundBeaconsCount++;
 					RunOnUiThread (() => {
-						_foundText.Text = $"ნაპოვნია: {_foundBeaconsCount}";
 						_beaconQuantityInTitleBar.Text = $"{_foundBeaconsCount}/{_beacons.Count}";
 					});
 				}
@@ -105,10 +101,9 @@ namespace hackTbilisi2015.Activities
 				if (_foundBeaconsCount == _beacons.Count && !_dialogShowed) {
 					_dialogShowed = true;
 					RunOnUiThread (() => {
-						CreateAlertDialog (ApplicationStrings.game_over_title, ApplicationStrings.game_over_message);
+						CreateAlertDialog (ApplicationStrings.game_over_title, ApplicationStrings.game_over_message, true);
 						_proximityText.Text = ApplicationStrings.game_over_message;
 					});
-					
 				}
 			}
 			Console.WriteLine ();
@@ -125,16 +120,18 @@ namespace hackTbilisi2015.Activities
 			_iBeaconManager.UnBind (this);
 		}
 
-		private void CreateAlertDialog (string title, string message)
+		private void CreateAlertDialog (string title, string message, bool allSuccess = false)
 		{
 			Dialog dialog = null;
 			AlertDialog.Builder alert = new AlertDialog.Builder (this);
 			alert.SetTitle (title);
+			alert.SetCancelable (false);
 			alert.SetMessage (message);
 			alert.SetPositiveButton ("OK", (senderAlert, args) => {
 				dialog.Hide ();
 				dialog.Dismiss ();
-				OnBackPressed ();
+				if (allSuccess)
+					OnBackPressed ();
 			});
 
 			dialog = alert.Create ();

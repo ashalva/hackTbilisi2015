@@ -20,4 +20,20 @@
 	    <value>You win!</value>
 	    <comment></comment>
 	</data>
+	<data name="Journey" xml:space="preserve">
+	    <value>დაწყება</value>
+	    <comment></comment>
+	</data>
+	<data name="Scan" xml:space="preserve">
+	    <value>სკანირება</value>
+	    <comment></comment>
+	</data>
+	<data name="PleaseWait" xml:space="preserve">
+	    <value>გთხოვთ დაელოდოთ</value>
+	    <comment></comment>
+	</data>
+	<data name="BeaconsAreBeingSearched" xml:space="preserve">
+	    <value>მიმდინარეობს ბეკონების ძებნა</value>
+	    <comment></comment>
+	</data>
 </root>

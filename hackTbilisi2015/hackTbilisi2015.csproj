@@ -72,6 +72,7 @@
     <Compile Include="ApplicationStrings.Designer.cs">
       <DependentUpon>ApplicationStrings.resx</DependentUpon>
     </Compile>
+    <Compile Include="Fragments\BeaconQuantityFragment.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -88,6 +89,7 @@
     <AndroidResource Include="Resources\layout\Toolbar.axml" />
     <AndroidResource Include="Resources\layout\SearchToolbar.axml" />
     <AndroidResource Include="Resources\drawable\ibeacon_icon.png" />
+    <AndroidResource Include="Resources\layout\QuantityLayout.axml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\Main.axml" />
@@ -101,6 +103,7 @@
   <ItemGroup>
     <Folder Include="Resources\drawable\" />
     <Folder Include="Resources\values-v21\" />
+    <Folder Include="Fragments\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Insights.1.10.6\build\MonoAndroid10\Xamarin.Insights.targets" Condition="Exists('..\packages\Xamarin.Insights.1.10.6\build\MonoAndroid10\Xamarin.Insights.targets')" />

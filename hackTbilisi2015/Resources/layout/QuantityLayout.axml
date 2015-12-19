@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="შეიყვანეთ ბეკონების რაოდენობა"
+        android:textSize="21dp" />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/quantity"
+        android:hint="რაოდონება"
+        android:maxLength="3"
+        android:textSize="16dp"
+        android:inputType="number"
+        android:paddingBottom="5dp" />
+    <Button
+        android:id="@+id/quantity_Button"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Ok"
+        android:background="#b2dfdb" />
+</LinearLayout>

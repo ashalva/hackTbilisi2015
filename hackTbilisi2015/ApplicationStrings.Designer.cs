@@ -57,5 +57,29 @@ namespace hackTbilisi2015 {
                 return ResourceManager.GetString("game_over_title", resourceCulture);
             }
         }
+        
+        internal static string Journey {
+            get {
+                return ResourceManager.GetString("Journey", resourceCulture);
+            }
+        }
+        
+        internal static string Scan {
+            get {
+                return ResourceManager.GetString("Scan", resourceCulture);
+            }
+        }
+        
+        internal static string PleaseWait {
+            get {
+                return ResourceManager.GetString("PleaseWait", resourceCulture);
+            }
+        }
+        
+        internal static string BeaconsAreBeingSearched {
+            get {
+                return ResourceManager.GetString("BeaconsAreBeingSearched", resourceCulture);
+            }
+        }
     }
 }

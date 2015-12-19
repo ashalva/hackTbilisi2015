@@ -10,14 +10,14 @@ using System.Linq;
 using System.Timers;
 using Newtonsoft.Json;
 using Java.Lang;
+using Android.Support.V4.App;
 
 namespace hackTbilisi2015.Activities
 {
 	[Activity (Label = "hackTbilisi2015", MainLauncher = true, Icon = "@mipmap/icon")]
-	public class MainActivity : Activity, BluetoothAdapter.ILeScanCallback
+	public class MainActivity : FragmentActivity, BluetoothAdapter.ILeScanCallback
 	{
 		private List<iBeacon> _beacons;
-		private int beaconCount = 4;
 		private BluetoothAdapter adapter;
 		private Timer timer;
 		private int elapsedSeconds;
@@ -25,12 +25,24 @@ namespace hackTbilisi2015.Activities
 		private ProgressDialog _progressDialog;
 		private ListView _beaconList;
 
+		public int BeaconQuantity {
+			get;
+			set;
+		}
+
 		protected override void OnCreate (Bundle savedInstanceState)
 		{
 			base.OnCreate (savedInstanceState);
 			SetContentView (Resource.Layout.Main);
 			_scan = FindViewById<Button> (Resource.Id.scan);
 			_beaconList = FindViewById<ListView> (Resource.Id.beacon_list);
+			_scan.Text = ApplicationStrings.Scan;
+
+			BeaconQuantityFragment d = new BeaconQuantityFragment ();
+			d.Show (FragmentManager, "");
+			d.SetStyle (DialogFragmentStyle.NoTitle, Android.Resource.Style.ThemeHoloLightDialogNoActionBar);
+			d.Cancelable = false;
+
 
 			timer = new Timer ();
 			timer.Elapsed += Timer_Elapsed;
@@ -39,7 +51,7 @@ namespace hackTbilisi2015.Activities
 
 			_beacons = new List<iBeacon> ();
 			_scan.Click += (object sender, EventArgs e) => {
-				_progressDialog = ProgressDialog.Show (this, "Please wait...", "We are scanning the beacons", true);
+				_progressDialog = ProgressDialog.Show (this, ApplicationStrings.PleaseWait, ApplicationStrings.BeaconsAreBeingSearched, true);
 				_beacons.Clear ();
 				_scan.Enabled = false;
 				elapsedSeconds = 0;
@@ -48,6 +60,7 @@ namespace hackTbilisi2015.Activities
 			};
 
 			_findTheBeacons = FindViewById<Button> (Resource.Id.myButton);
+			_findTheBeacons.Text = ApplicationStrings.Journey;
 			_findTheBeacons.Enabled = false;
 			_findTheBeacons.SetTextColor (Android.Graphics.Color.Gray);
 			_findTheBeacons.Click += delegate {
@@ -66,13 +79,13 @@ namespace hackTbilisi2015.Activities
 				timer.Stop ();
 				adapter.StopLeScan (this);
 				elapsedSeconds = 0;
-				if (_beacons.Count < beaconCount) {
+				if (_beacons.Count < BeaconQuantity) {
 					RunOnUiThread (() => {
 						if (_progressDialog.IsShowing) {
 							_progressDialog.Hide ();
 							_progressDialog.Dismiss ();
 						}
-						Toast.MakeText (this, string.Format ("{0} ვიპოვე {1}-დან", _beacons.Count, beaconCount),
+						Toast.MakeText (this, string.Format ("{0} ვიპოვე {1}-დან", _beacons.Count, BeaconQuantity),
 							ToastLength.Long).Show ();
 						_scan.Enabled = true;
 						_findTheBeacons.Enabled = true;
@@ -126,12 +139,12 @@ namespace hackTbilisi2015.Activities
 							MacAddress = device.Address
 						});
 				}
-				if (_beacons.Count == beaconCount) {
+				if (_beacons.Count == BeaconQuantity) {
 					if (_progressDialog.IsShowing) {
 						_progressDialog.Hide ();
 						_progressDialog.Dismiss ();
 					}
-					Toast.MakeText (this, string.Format ("ვიპოვე {0} ცალი.", beaconCount), ToastLength.Short).Show ();
+					Toast.MakeText (this, string.Format ("ვიპოვე {0} ცალი.", BeaconQuantity), ToastLength.Short).Show ();
 					_findTheBeacons.Enabled = true;
 					_findTheBeacons.SetTextColor (Android.Graphics.Color.White);
 					_scan.Enabled = true;

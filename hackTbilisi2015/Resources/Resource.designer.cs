@@ -1342,8 +1342,8 @@ namespace hackTbilisi2015
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f0c0063
-			public const int SearchToolbar = 2131492963;
+			// aapt resource value: 0x7f0c0065
+			public const int SearchToolbar = 2131492965;
 			
 			// aapt resource value: 0x7f0c0052
 			public const int Toolbar = 2131492946;
@@ -1465,11 +1465,8 @@ namespace hackTbilisi2015
 			// aapt resource value: 0x7f0c0037
 			public const int expanded_menu = 2131492919;
 			
-			// aapt resource value: 0x7f0c0064
-			public const int found = 2131492964;
-			
-			// aapt resource value: 0x7f0c0066
-			public const int foundBeacons = 2131492966;
+			// aapt resource value: 0x7f0c0068
+			public const int foundBeacons = 2131492968;
 			
 			// aapt resource value: 0x7f0c0004
 			public const int home = 2131492868;
@@ -1534,8 +1531,14 @@ namespace hackTbilisi2015
 			// aapt resource value: 0x7f0c0006
 			public const int progress_horizontal = 2131492870;
 			
-			// aapt resource value: 0x7f0c0065
-			public const int proximity = 2131492965;
+			// aapt resource value: 0x7f0c0067
+			public const int proximity = 2131492967;
+			
+			// aapt resource value: 0x7f0c0063
+			public const int quantity = 2131492963;
+			
+			// aapt resource value: 0x7f0c0064
+			public const int quantity_Button = 2131492964;
 			
 			// aapt resource value: 0x7f0c003a
 			public const int radio = 2131492922;
@@ -1605,6 +1608,9 @@ namespace hackTbilisi2015
 			
 			// aapt resource value: 0x7f0c0022
 			public const int src_over = 2131492898;
+			
+			// aapt resource value: 0x7f0c0066
+			public const int start_moving = 2131492966;
 			
 			// aapt resource value: 0x7f0c0058
 			public const int status_bar_latest_event_content = 2131492952;
@@ -1798,25 +1804,28 @@ namespace hackTbilisi2015
 			public const int notification_template_part_time = 2130968610;
 			
 			// aapt resource value: 0x7f040023
-			public const int Search = 2130968611;
+			public const int QuantityLayout = 2130968611;
 			
 			// aapt resource value: 0x7f040024
-			public const int SearchToolbar = 2130968612;
+			public const int Search = 2130968612;
 			
 			// aapt resource value: 0x7f040025
-			public const int select_dialog_item_material = 2130968613;
+			public const int SearchToolbar = 2130968613;
 			
 			// aapt resource value: 0x7f040026
-			public const int select_dialog_multichoice_material = 2130968614;
+			public const int select_dialog_item_material = 2130968614;
 			
 			// aapt resource value: 0x7f040027
-			public const int select_dialog_singlechoice_material = 2130968615;
+			public const int select_dialog_multichoice_material = 2130968615;
 			
 			// aapt resource value: 0x7f040028
-			public const int support_simple_spinner_dropdown_item = 2130968616;
+			public const int select_dialog_singlechoice_material = 2130968616;
 			
 			// aapt resource value: 0x7f040029
-			public const int Toolbar = 2130968617;
+			public const int support_simple_spinner_dropdown_item = 2130968617;
+			
+			// aapt resource value: 0x7f04002a
+			public const int Toolbar = 2130968618;
 			
 			static Layout()
 			{

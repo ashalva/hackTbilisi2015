@@ -8,15 +8,17 @@
         android:id="@+id/SearchToolbar"
         layout="@layout/SearchToolbar" />
     <TextView
-        android:text="Text"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:id="@+id/start_moving"
+        android:text="დაიწყე მოძრაობა"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="21dp"
         android:layout_gravity="center_horizontal"
-        android:gravity="center_horizontal"
-        android:id="@+id/found" />
+        android:gravity="center_horizontal" />
     <TextView
-        android:text="Text"
+        android:text="Near"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="21dp"
