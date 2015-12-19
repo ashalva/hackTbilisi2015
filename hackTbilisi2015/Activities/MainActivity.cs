@@ -22,7 +22,9 @@ namespace hackTbilisi2015.Activities
         Timer timer;
         int elapsedSeconds;
         TextView text;
-		protected override void OnCreate (Bundle savedInstanceState)
+        Button button;
+        bool activityWasStarted = false;
+        protected override void OnCreate (Bundle savedInstanceState)
 		{
 			base.OnCreate (savedInstanceState);
 			SetContentView (Resource.Layout.Main);
@@ -38,7 +40,16 @@ namespace hackTbilisi2015.Activities
             timer.Start();
 			adapter.StartLeScan (this);
 
-           
+            button = FindViewById<Button>(Resource.Id.myButton);
+            button.Click += delegate
+            {
+                timer.Stop();
+                activityWasStarted = true;
+                var intent = new Intent(this, typeof(SearchActivity));
+                var serializedBeacons = JsonConvert.SerializeObject(_beacons);
+                intent.PutExtra("Beacons", serializedBeacons);
+                StartActivity(intent);
+            };
 		}
 
         private void Timer_Elapsed(object sender, ElapsedEventArgs e)
@@ -49,67 +60,76 @@ namespace hackTbilisi2015.Activities
                 timer.Stop();
                 adapter.StopLeScan(this);
                 elapsedSeconds = 0;
+                if (_beacons.Count< beaconCount)
+                    RunOnUiThread(() => Toast.MakeText(this, $"{_beacons.Count} ვიპოვე {beaconCount}-დან", ToastLength.Long).Show());
             }
         }
 
         public void OnLeScan (BluetoothDevice device, int rssi, byte[] scanRecord)
 		{
-			int startByte = 2;
-			var patternFound = false;
-			while (startByte <= 5) {
-				if (((int)scanRecord [startByte + 2] & 0xff) == 0x02 &&
-				    ((int)scanRecord [startByte + 3] & 0xff) == 0x15) { //Identifies correct data length
-					patternFound = true;
-					break;
-				}
-				startByte++;
-			}
-
-			if (patternFound) {
-				//Convert to hex String
-				byte[] uuidBytes = new byte[16];
-				Array.Copy (scanRecord, startByte + 4, uuidBytes, 0, 16);
-				var hexString = BitConverter.ToString (uuidBytes).Replace ("-", "");
-
-				//Here is your UUID
-				var uuid = hexString.Substring (0, 8) + "-" +
-				           hexString.Substring (8, 4) + "-" +
-				           hexString.Substring (12, 4) + "-" +
-				           hexString.Substring (16, 4) + "-" +
-				           hexString.Substring (20, 12);
-
-				//Here is your Major value
-				int major = (scanRecord [startByte + 20] & 0xff) * 0x100 + (scanRecord [startByte + 21] & 0xff);
-
-				//Here is your Minor value
-				int minor = (scanRecord [startByte + 22] & 0xff) * 0x100 + (scanRecord [startByte + 23] & 0xff);
-
-				if (!_beacons.Any (b => b.UUID == uuid && b.Major == major && b.Minor == minor))
-					_beacons.Add (new iBeacon () { 
-						UUID = uuid,
-						Minor = Convert.ToUInt16(minor),
-						Major = Convert.ToUInt16(major),
-						Name = device.Name,
-						MacAddress = device.Address
-					});
-			}
-            if (_beacons.Count==beaconCount)
+            if (!_beacons.Any(x => x.MacAddress == device.Address))
             {
-                Toast.MakeText(this, "ვიპოვე 4 ცალი.", ToastLength.Long).Show();
-                adapter.StopLeScan(this);
-                timer.Stop();
-                elapsedSeconds = 0;
-                foreach (var beacon in _beacons)
+                int startByte = 2;
+                var patternFound = false;
+                while (startByte <= 5)
                 {
-                    text.Text += beacon.Name;
+                    if (((int)scanRecord[startByte + 2] & 0xff) == 0x02 &&
+                        ((int)scanRecord[startByte + 3] & 0xff) == 0x15)
+                    { //Identifies correct data length
+                        patternFound = true;
+                        break;
+                    }
+                    startByte++;
                 }
 
-                var intent = new Intent(this,typeof(SearchActivity));
-                var serializedBeacons = JsonConvert.SerializeObject(_beacons);
-                intent.PutExtra("Beacons", serializedBeacons);
-                StartActivity(intent);
+                if (patternFound)
+                {
+                    //Convert to hex String
+                    byte[] uuidBytes = new byte[16];
+                    Array.Copy(scanRecord, startByte + 4, uuidBytes, 0, 16);
+                    var hexString = BitConverter.ToString(uuidBytes).Replace("-", "");
+
+                    //Here is your UUID
+                    var uuid = hexString.Substring(0, 8) + "-" +
+                               hexString.Substring(8, 4) + "-" +
+                               hexString.Substring(12, 4) + "-" +
+                               hexString.Substring(16, 4) + "-" +
+                               hexString.Substring(20, 12);
+
+                    //Here is your Major value
+                    int major = (scanRecord[startByte + 20] & 0xff) * 0x100 + (scanRecord[startByte + 21] & 0xff);
+
+                    //Here is your Minor value
+                    int minor = (scanRecord[startByte + 22] & 0xff) * 0x100 + (scanRecord[startByte + 23] & 0xff);
+
+                    if (!_beacons.Any(b => b.UUID == uuid && b.Major == major && b.Minor == minor))
+                        _beacons.Add(new iBeacon()
+                        {
+                            UUID = uuid,
+                            Minor = Convert.ToUInt16(minor),
+                            Major = Convert.ToUInt16(major),
+                            Name = device.Name,
+                            MacAddress = device.Address
+                        });
+                }
+                if (_beacons.Count == beaconCount)
+                {
+                    Toast.MakeText(this, $"ვიპოვე {beaconCount} ცალი.", ToastLength.Long).Show();
+                    adapter.StopLeScan(this);
+                    timer.Stop();
+                    elapsedSeconds = 0;
+                    foreach (var beacon in _beacons)
+                    {
+                        text.Text += beacon.Name;
+                    }
+                    if (!activityWasStarted)
+                    {
+                       
+                    }
+                }
             }
 		}
-     
-	}
+
+
+    }
 }
