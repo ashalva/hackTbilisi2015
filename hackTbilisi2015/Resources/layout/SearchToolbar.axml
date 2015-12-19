@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="13dp"
         android:textSize="17dp"
-        android:text="3/4"
+        android:text="-/-"
         android:textColor="@android:color/white"
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true" />

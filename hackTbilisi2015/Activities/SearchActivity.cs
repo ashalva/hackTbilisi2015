@@ -18,23 +18,27 @@ namespace hackTbilisi2015.Activities
 	[Activity (Label = "SearchActivity")]
 	public class SearchActivity : Activity, IBeaconConsumer
 	{
-		IBeaconManager _iBeaconManager;
-		RangeNotifier _rangeNotifier;
-		List<Region> _rangingRegion;
-		List<BeaconsInfo> _beaconsInfo;
+		private IBeaconManager _iBeaconManager;
+		private RangeNotifier _rangeNotifier;
+		private List<Region> _rangingRegion;
+		private List<BeaconsInfo> _beaconsInfo;
 		private List<iBeacon> _beacons;
-		int foundBeaconsCount = 0;
-		TextView foundText;
-		TextView proximityText;
+		private int _foundBeaconsCount = 0;
+		private TextView _foundText;
+		private TextView _proximityText;
+		private TextView _beaconQuantityInTitleBar;
+		private bool _dialogShowed = false;
 
 		protected override void OnCreate (Bundle savedInstanceState)
 		{
 			base.OnCreate (savedInstanceState);
 			SetContentView (Resource.Layout.Search);
-			foundText = FindViewById<TextView> (Resource.Id.found);
-			foundText.Text = $"ნაპოვნია: {foundBeaconsCount}";
-			proximityText = FindViewById<TextView> (Resource.Id.proximity);
-			proximityText.Text = "";
+			_beaconQuantityInTitleBar = FindViewById<TextView> (Resource.Id.foundBeacons);
+
+			_foundText = FindViewById<TextView> (Resource.Id.found);
+			_foundText.Text = $"ნაპოვნია: {_foundBeaconsCount}";
+			_proximityText = FindViewById<TextView> (Resource.Id.proximity);
+			_proximityText.Text = "";
 			var json = Intent.GetStringExtra ("Beacons");
 			_beacons = JsonConvert.DeserializeObject<List<iBeacon>> (json);
 			_beaconsInfo = new List<BeaconsInfo> ();
@@ -88,15 +92,23 @@ namespace hackTbilisi2015.Activities
 				var nearest = _beaconsInfo.Where (x => !x.WasFound && !(x.ProximityType == ProximityType.Unknown)).OrderBy (x => (int)x.ProximityType).FirstOrDefault ();
 				if (nearest?.ProximityType == ProximityType.Immediate) {
 					nearest.WasFound = true;
-					foundBeaconsCount++;
-					RunOnUiThread (() => foundText.Text = $"ნაპოვნია: {foundBeaconsCount}");
+					_foundBeaconsCount++;
+					RunOnUiThread (() => {
+						_foundText.Text = $"ნაპოვნია: {_foundBeaconsCount}";
+						_beaconQuantityInTitleBar.Text = $"{_foundBeaconsCount}/{_beacons.Count}";
+					});
 				}
 
 				if (nearest != null)
-					RunOnUiThread (() => proximityText.Text = nearest.ProximityType.ToString ());
+					RunOnUiThread (() => _proximityText.Text = nearest.ProximityType.ToString ());
 
-				if (foundBeaconsCount == _beacons.Count) {
-					RunOnUiThread (() => proximityText.Text = "You found all beacons! Game over!");
+				if (_foundBeaconsCount == _beacons.Count && !_dialogShowed) {
+					_dialogShowed = true;
+					RunOnUiThread (() => {
+						CreateAlertDialog (ApplicationStrings.game_over_title, ApplicationStrings.game_over_message);
+						_proximityText.Text = ApplicationStrings.game_over_message;
+					});
+					
 				}
 			}
 			Console.WriteLine ();
@@ -111,6 +123,22 @@ namespace hackTbilisi2015.Activities
 			foreach (var region in _rangingRegion)
 				_iBeaconManager.StopRangingBeaconsInRegion (region);
 			_iBeaconManager.UnBind (this);
+		}
+
+		private void CreateAlertDialog (string title, string message)
+		{
+			Dialog dialog = null;
+			AlertDialog.Builder alert = new AlertDialog.Builder (this);
+			alert.SetTitle (title);
+			alert.SetMessage (message);
+			alert.SetPositiveButton ("OK", (senderAlert, args) => {
+				dialog.Hide ();
+				dialog.Dismiss ();
+				OnBackPressed ();
+			});
+
+			dialog = alert.Create ();
+			dialog.Show ();
 		}
 	}
 }

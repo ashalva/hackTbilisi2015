@@ -3,7 +3,7 @@
     android:layout_width="fill_parent"
     android:orientation="vertical"
     android:layout_height="wrap_content"
-    android:padding="8dp"
+    android:padding="5dp"
     android:background="#00695c">
     <TextView
         android:id="@+id/beaconName"
