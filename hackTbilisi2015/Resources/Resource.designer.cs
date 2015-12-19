@@ -1324,7 +1324,10 @@ namespace hackTbilisi2015
 			public const int buttonBackground = 2130837563;
 			
 			// aapt resource value: 0x7f02003c
-			public const int notification_template_icon_bg = 2130837564;
+			public const int ibeacon_icon = 2130837564;
+			
+			// aapt resource value: 0x7f02003d
+			public const int notification_template_icon_bg = 2130837565;
 			
 			static Drawable()
 			{
@@ -1338,6 +1341,9 @@ namespace hackTbilisi2015
 		
 		public partial class Id
 		{
+			
+			// aapt resource value: 0x7f0c0063
+			public const int SearchToolbar = 2131492963;
 			
 			// aapt resource value: 0x7f0c0052
 			public const int Toolbar = 2131492946;
@@ -1459,8 +1465,11 @@ namespace hackTbilisi2015
 			// aapt resource value: 0x7f0c0037
 			public const int expanded_menu = 2131492919;
 			
-			// aapt resource value: 0x7f0c0063
-			public const int found = 2131492963;
+			// aapt resource value: 0x7f0c0064
+			public const int found = 2131492964;
+			
+			// aapt resource value: 0x7f0c0066
+			public const int foundBeacons = 2131492966;
 			
 			// aapt resource value: 0x7f0c0004
 			public const int home = 2131492868;
@@ -1525,8 +1534,8 @@ namespace hackTbilisi2015
 			// aapt resource value: 0x7f0c0006
 			public const int progress_horizontal = 2131492870;
 			
-			// aapt resource value: 0x7f0c0064
-			public const int proximity = 2131492964;
+			// aapt resource value: 0x7f0c0065
+			public const int proximity = 2131492965;
 			
 			// aapt resource value: 0x7f0c003a
 			public const int radio = 2131492922;
@@ -1792,19 +1801,22 @@ namespace hackTbilisi2015
 			public const int Search = 2130968611;
 			
 			// aapt resource value: 0x7f040024
-			public const int select_dialog_item_material = 2130968612;
+			public const int SearchToolbar = 2130968612;
 			
 			// aapt resource value: 0x7f040025
-			public const int select_dialog_multichoice_material = 2130968613;
+			public const int select_dialog_item_material = 2130968613;
 			
 			// aapt resource value: 0x7f040026
-			public const int select_dialog_singlechoice_material = 2130968614;
+			public const int select_dialog_multichoice_material = 2130968614;
 			
 			// aapt resource value: 0x7f040027
-			public const int support_simple_spinner_dropdown_item = 2130968615;
+			public const int select_dialog_singlechoice_material = 2130968615;
 			
 			// aapt resource value: 0x7f040028
-			public const int Toolbar = 2130968616;
+			public const int support_simple_spinner_dropdown_item = 2130968616;
+			
+			// aapt resource value: 0x7f040029
+			public const int Toolbar = 2130968617;
 			
 			static Layout()
 			{
