@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+	<style name="hackTbilisiTheme" parent="hackTbilisiTheme.Base">
+	</style>
+	<style name="hackTbilisiTheme.Base" parent="@style/Theme.AppCompat.Light">
+		<item name="android:windowNoTitle">true</item>
+		<item name="windowActionBar">false</item>
+		<item name="colorPrimary">#009688</item>
+		<item name="colorPrimaryDark">#009688</item>
+		<item name="colorAccent">#009688</item>
+		<item name="android:windowEnableSplitTouch">false</item>
+		<item name="android:splitMotionEvents">false</item>
+	</style>
+	<style name="ImageButtonStyle">
+		<item name="android:background">@android:color/transparent</item>
+	</style>
+</resources>

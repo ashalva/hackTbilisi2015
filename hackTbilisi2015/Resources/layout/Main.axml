@@ -4,17 +4,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:weightSum="100"
-    android:background="#26a69a">
+    android:background="#80cbc4">
+    <include
+        android:layout_weight="25"
+        android:id="@+id/Toolbar"
+        layout="@layout/Toolbar" />
     <LinearLayout
-        android:layout_weight="35"
+        android:layout_weight="34"
         android:weightSum="5"
-        android:background="#00897b"
+        android:background="#26a69a"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center">
         <Button
             android:id="@+id/myButton"
             android:textSize="19dp"
+            android:gravity="center"
+            android:layout_gravity="center"
             android:layout_width="0dp"
             android:layout_weight="2"
             android:layout_height="135dp"
@@ -23,15 +29,17 @@
             android:background="@drawable/buttonbackground" />
     </LinearLayout>
     <LinearLayout
-        android:layout_weight="35"
+        android:layout_weight="34"
         android:weightSum="5"
-        android:background="#009688"
+        android:background="#4db6ac"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center">
         <Button
             android:textColor="@android:color/white"
             android:text="Scan"
+            android:gravity="center"
+            android:layout_gravity="center"
             android:textSize="19dp"
             android:layout_width="0dp"
             android:layout_height="135dp"
@@ -40,7 +48,7 @@
             android:background="@drawable/buttonbackground" />
     </LinearLayout>
     <LinearLayout
-        android:layout_weight="30"
+        android:layout_weight="32"
         android:weightSum="5"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
