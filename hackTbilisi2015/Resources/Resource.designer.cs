@@ -1465,8 +1465,8 @@ namespace hackTbilisi2015
 			// aapt resource value: 0x7f0c0037
 			public const int expanded_menu = 2131492919;
 			
-			// aapt resource value: 0x7f0c0068
-			public const int foundBeacons = 2131492968;
+			// aapt resource value: 0x7f0c0069
+			public const int foundBeacons = 2131492969;
 			
 			// aapt resource value: 0x7f0c0004
 			public const int home = 2131492868;
@@ -1635,6 +1635,9 @@ namespace hackTbilisi2015
 			
 			// aapt resource value: 0x7f0c002c
 			public const int title = 2131492908;
+			
+			// aapt resource value: 0x7f0c0068
+			public const int title_bar_search = 2131492968;
 			
 			// aapt resource value: 0x7f0c002f
 			public const int title_template = 2131492911;

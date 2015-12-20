@@ -12,6 +12,8 @@ using RadiusNetworks.IBeaconAndroid;
 using Newtonsoft.Json;
 using hackTbilisi2015.Core.BusinessObjects;
 using hackTbilisi2015.Helpers;
+using System.Security.Cryptography;
+using System.Security.Principal;
 
 namespace hackTbilisi2015.Activities
 {
@@ -27,13 +29,14 @@ namespace hackTbilisi2015.Activities
 		private TextView _proximityText;
 		private TextView _beaconQuantityInTitleBar;
 		private bool _dialogShowed = false;
+		private RelativeLayout _titleBar;
 
 		protected override void OnCreate (Bundle savedInstanceState)
 		{
 			base.OnCreate (savedInstanceState);
 			SetContentView (Resource.Layout.Search);
 			_beaconQuantityInTitleBar = FindViewById<TextView> (Resource.Id.foundBeacons);
-
+			_titleBar = FindViewById<RelativeLayout> (Resource.Id.title_bar_search);
 			_proximityText = FindViewById<TextView> (Resource.Id.proximity);
 			_proximityText.Text = "";
 			var json = Intent.GetStringExtra ("Beacons");
@@ -95,8 +98,9 @@ namespace hackTbilisi2015.Activities
 					});
 				}
 
-				if (nearest != null)
-					RunOnUiThread (() => _proximityText.Text = nearest.ProximityType.ToString ());
+				if (nearest != null) {
+					RunOnUiThread (() => ChangeUI (nearest.ProximityType));
+				}
 
 				if (_foundBeaconsCount == _beacons.Count && !_dialogShowed) {
 					_dialogShowed = true;
@@ -137,5 +141,41 @@ namespace hackTbilisi2015.Activities
 			dialog = alert.Create ();
 			dialog.Show ();
 		}
+
+		private void ChangeUI (ProximityType proxType)
+		{
+			switch (proxType) {
+			case ProximityType.Immediate:
+				_proximityText.Text = "ძაააალიან ახლოს ხარ,ცხელააა";
+				ChangeTitleBarColor ("#e53935");
+				break;
+			case ProximityType.Near:
+				_proximityText.Text = "თითქმის მიუახლოვდი, კარგია";
+				ChangeTitleBarColor ("#ffa000");
+				break;
+			case ProximityType.Far:
+				_proximityText.Text = "ჯერ შორსა ხარ";
+				ChangeTitleBarColor ("#00bcd4");
+				break;
+			case ProximityType.Unknown:
+				_proximityText.Text = "აზრზე არ ვარ სად ხარ :(";
+				ChangeTitleBarColor ("#757575");
+				break;
+			}
+		}
+
+		private void ChangeTitleBarColor (string color)
+		{
+			if ((int)Build.VERSION.SdkInt >= 5) {
+				if (Window != null) {
+					Window.ClearFlags (WindowManagerFlags.TranslucentStatus);
+					Window.AddFlags (WindowManagerFlags.DrawsSystemBarBackgrounds);
+					Window.SetStatusBarColor (Android.Graphics.Color.ParseColor (color));
+				}
+				_titleBar.SetBackgroundColor (Android.Graphics.Color.ParseColor (color));
+			}
+
+		}
+	
 	}
 }

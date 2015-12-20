@@ -1,38 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:local="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="45dp"
-    android:orientation="horizontal"
     android:clickable="true"
     android:focusableInTouchMode="true"
     android:focusable="true"
     android:background="#009688">
-    <TextView
-        android:id="@+id/foundBeacons"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="13dp"
-        android:textSize="17dp"
-        android:text="-/-"
-        android:textColor="@android:color/white"
-        android:layout_centerVertical="true"
-        android:layout_alignParentLeft="true" />
-    <ImageView
-        android:layout_width="12dp"
-        android:layout_height="20dp"
-        android:background="@drawable/ibeacon_icon"
-        android:layout_toRightOf="@id/foundBeacons"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="5dp" />
-    <TextView
-        android:textColor="@android:color/white"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:textSize="18dp"
-        android:text="hackTbilisi2015"
-        android:layout_alignParentBottom="false" />
-</RelativeLayout>
+    <RelativeLayout
+        android:background="#009688"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:id="@+id/title_bar_search">
+        <TextView
+            android:id="@+id/foundBeacons"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="13dp"
+            android:textSize="17dp"
+            android:text="-/-"
+            android:textColor="@android:color/white"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true" />
+        <ImageView
+            android:layout_width="12dp"
+            android:layout_height="20dp"
+            android:background="@drawable/ibeacon_icon"
+            android:layout_toRightOf="@id/foundBeacons"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp" />
+        <TextView
+            android:textColor="@android:color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:textSize="18dp"
+            android:text="hackTbilisi2015"
+            android:layout_alignParentBottom="false" />
+    </RelativeLayout>
+</LinearLayout>
