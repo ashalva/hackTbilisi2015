@@ -104,7 +104,7 @@ namespace hackTbilisi2015.Activities
 					RunOnUiThread (() => {
 						ChangeUI (nearest.ProximityType);
 						if (nearest.ProximityType == ProximityType.Immediate) {
-							CreateAlertDialog ("ბეკონი ნაპოვნია", $"ყოჩაღ! დარჩენილია {_foundBeaconsCount} ცალი", "გაგრძელება");
+							CreateAlertDialog ("ბეკონი ნაპოვნია", $"ყოჩაღ! დარჩენილია {_beacons.Count-_foundBeaconsCount} ცალი", "გაგრძელება"); 
 							_searching = false;
 						}
 					});
