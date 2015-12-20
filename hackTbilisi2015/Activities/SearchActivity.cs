@@ -30,6 +30,7 @@ namespace hackTbilisi2015.Activities
 		private TextView _beaconQuantityInTitleBar;
 		private bool _dialogShowed = false;
 		private RelativeLayout _titleBar;
+		private bool _searching = false;
 
 		protected override void OnCreate (Bundle savedInstanceState)
 		{
@@ -66,11 +67,12 @@ namespace hackTbilisi2015.Activities
 				_iBeaconManager.RangedRegions.Add (region);
 				_iBeaconManager.StartRangingBeaconsInRegion (region);
 			}
+			_searching = true;
 		}
 
 		void DidRange (object sender, RangeEventArgs e)
 		{
-			if (e.Beacons.Count > 0) {
+			if (e.Beacons.Count > 0 && _searching) {
 				foreach (var beacon in e.Beacons) {
 					var currentBeaconInfo = _beaconsInfo.FirstOrDefault (x => x.Beacon.UUID.ToLower () == beacon.ProximityUuid && x.Beacon.Major == beacon.Major && x.Beacon.Minor == beacon.Minor);
 					if (!(currentBeaconInfo == null) && !currentBeaconInfo.WasFound)
@@ -99,18 +101,28 @@ namespace hackTbilisi2015.Activities
 				}
 
 				if (nearest != null) {
-					RunOnUiThread (() => ChangeUI (nearest.ProximityType));
+					RunOnUiThread (() => {
+						ChangeUI (nearest.ProximityType);
+						if (nearest.ProximityType == ProximityType.Immediate) {
+							CreateAlertDialog ("ბეკონი ნაპოვნია", $"ყოჩაღ! დარჩენილია {_foundBeaconsCount} ცალი", "გაგრძელება");
+							_searching = false;
+						}
+					});
 				}
 
 				if (_foundBeaconsCount == _beacons.Count && !_dialogShowed) {
 					_dialogShowed = true;
 					RunOnUiThread (() => {
-						CreateAlertDialog (ApplicationStrings.game_over_title, ApplicationStrings.game_over_message, true);
+						CreateAlertDialog (ApplicationStrings.game_over_title, ApplicationStrings.game_over_message, "OK", true);
 						_proximityText.Text = ApplicationStrings.game_over_message;
 					});
 				}
 			}
-			Console.WriteLine ();
+		}
+
+		private void CreateAlert ()
+		{
+				
 		}
 
 		protected override void OnDestroy ()
@@ -124,16 +136,18 @@ namespace hackTbilisi2015.Activities
 			_iBeaconManager.UnBind (this);
 		}
 
-		private void CreateAlertDialog (string title, string message, bool allSuccess = false)
+		private void CreateAlertDialog (string title, string message, string buttonMessage, bool allSuccess = false)
 		{
 			Dialog dialog = null;
 			AlertDialog.Builder alert = new AlertDialog.Builder (this);
 			alert.SetTitle (title);
 			alert.SetCancelable (false);
 			alert.SetMessage (message);
-			alert.SetPositiveButton ("OK", (senderAlert, args) => {
+			alert.SetPositiveButton (buttonMessage, (senderAlert, args) => {
 				dialog.Hide ();
 				dialog.Dismiss ();
+				_searching = true;
+				ChangeUI (ProximityType.Unknown);
 				if (allSuccess)
 					OnBackPressed ();
 			});
